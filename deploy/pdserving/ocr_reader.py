@@ -342,7 +342,7 @@ class OCRReader(object):
                  image_shape=[3, 32, 320],
                  char_type="ch",
                  batch_num=1,
-                 char_dict_path="./ppocr_keys_v1.txt"):
+                 char_dict_path="./en_dict.txt"):
         self.rec_image_shape = image_shape
         self.character_type = char_type
         self.rec_batch_num = batch_num
