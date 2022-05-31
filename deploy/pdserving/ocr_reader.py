@@ -339,7 +339,7 @@ class CharacterOps(object):
 class OCRReader(object):
     def __init__(self,
                  algorithm="CRNN",
-                 image_shape=[3, 32, 320],
+                 image_shape=[3, 48, 320],
                  char_type="ch",
                  batch_num=1,
                  char_dict_path="./en_dict.txt"):
