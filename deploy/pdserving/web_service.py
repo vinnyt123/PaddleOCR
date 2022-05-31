@@ -55,6 +55,8 @@ class DetOp(Op):
         )
 
     def preprocess(self, input_dicts, data_id, log_id):
+        print("DETTT printing input dict")
+        print(input_dicts)
         ((_, input_dict),) = input_dicts.items()
         data = base64.b64decode(input_dict["image"].encode("utf8"))
         self.raw_im = data
@@ -84,12 +86,11 @@ class RecOp(Op):
         self.sorted_boxes = SortedBoxes()
 
     def preprocess(self, input_dicts, data_id, log_id):
-        print("printing input dict")
+        print("RECC printing input dict")
         print(input_dicts)
         ((_, input_dict),) = input_dicts.items()
         raw_im = input_dict["image"]
-        print("xxx printing input dictuuuu")
-        print(input_dict)
+
         data = np.frombuffer(raw_im, np.uint8)
         im = cv2.imdecode(data, cv2.IMREAD_COLOR)
         self.dt_list = input_dict["dt_boxes"]
