@@ -8,6 +8,7 @@ def map_res_to_selectext_format(res):
         bounding_box = [{"x": bound[0], "y": bound[1]} for bound in bounding_box_initial]
         out.append({
             "text": word,
+            "confidence": confidence,
             "boundingBox": bounding_box,
         })
     
