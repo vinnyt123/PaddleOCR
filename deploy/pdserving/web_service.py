@@ -18,6 +18,7 @@ import numpy as np
 import copy
 import cv2
 import base64
+from os import environ
 
 # from paddle_serving_app.reader import OCRReader
 from ocr_reader import OCRReader, DetResizeForTest
@@ -55,9 +56,21 @@ class DetOp(Op):
         )
 
     def preprocess(self, input_dicts, data_id, log_id):
-        print("DETTT printing input dict")
-        print(input_dicts)
         ((_, input_dict),) = input_dicts.items()
+
+        print("DETTT printing input dict")
+        print(input_dict)
+
+        try:
+            request_secret = input_dict["secret"]
+        except KeyError:
+            raise ValueError("secret is required")
+        
+        env_secret = environ["PADDLE_SERVICE"]
+
+        if request_secret != env_secret:
+            raise ValueError("the secret is not correct")
+
         data = base64.b64decode(input_dict["image"].encode("utf8"))
         self.raw_im = data
         data = np.fromstring(data, np.uint8)
