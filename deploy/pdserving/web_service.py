@@ -175,7 +175,7 @@ class RecOp(Op):
             if text[1] >= 0.5:
                 result_list.append([text, dt_box.tolist()])
         
-        res = {"result": json.dumps(str(map_res_to_selectext_format(result_list)))}
+        res = {"result": json.dumps(map_res_to_selectext_format(result_list))}
         return res, None, ""
 
 

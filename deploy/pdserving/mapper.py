@@ -3,10 +3,10 @@ def map_res_to_selectext_format(res):
     for el in res:
         word, confidence = el[0]
         bounding_box_initial = el[1]
-        bounding_box = [{"x": bound[0], "y": bound[1]} for bound in bounding_box_initial]
+        bounding_box = [{"x": bound[0].item(), "y": bound[1].item()} for bound in bounding_box_initial]
         out.append({
             "text": word,
-            "confidence": confidence,
+            "confidence": confidence.item(),
             "boundingBox": bounding_box,
         })
     
