@@ -9,7 +9,6 @@ def map_res_to_selectext_format(res):
         out.append({
             "text": word,
             "boundingBox": bounding_box,
-            "break": " ",
             "confidence": confidence
         })
     
