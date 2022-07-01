@@ -66,7 +66,7 @@ class DetOp(Op):
         except KeyError:
             raise ValueError("secret is required")
         
-        env_secret = environ["PADDLE_SERVICE"]
+        env_secret = environ["PADDLE_SERVICE_CONNECTION_SECRET"]
 
         if request_secret != env_secret:
             raise ValueError("the secret is not correct")
