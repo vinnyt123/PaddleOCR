@@ -1,6 +1,4 @@
-def map_res_to_selectext_format(res):
-    print(res)
-    
+def map_res_to_selectext_format(res):    
     out = []
     for el in res:
         word, confidence = el[0]
@@ -12,5 +10,4 @@ def map_res_to_selectext_format(res):
             "boundingBox": bounding_box,
         })
     
-    print(out)
     return out
