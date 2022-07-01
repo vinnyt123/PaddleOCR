@@ -19,6 +19,7 @@ import copy
 import cv2
 import base64
 from os import environ
+import json
 
 # from paddle_serving_app.reader import OCRReader
 from ocr_reader import OCRReader, DetResizeForTest
@@ -30,6 +31,7 @@ from paddle_serving_app.reader import (
     GetRotateCropImage,
     SortedBoxes,
 )
+from mapper import map_res_to_selectext_format
 
 _LOGGER = logging.getLogger()
 
@@ -57,9 +59,6 @@ class DetOp(Op):
 
     def preprocess(self, input_dicts, data_id, log_id):
         ((_, input_dict),) = input_dicts.items()
-
-        print("DETTT printing input dict")
-        print(input_dict)
 
         try:
             request_secret = input_dict["secret"]
@@ -98,8 +97,6 @@ class RecOp(Op):
         self.sorted_boxes = SortedBoxes()
 
     def preprocess(self, input_dicts, data_id, log_id):
-        print("RECC printing input dict")
-        print(input_dicts)
         ((_, input_dict),) = input_dicts.items()
         raw_im = input_dict["image"]
 
@@ -177,7 +174,7 @@ class RecOp(Op):
             dt_box = self.dt_list[i]
             if text[1] >= 0.5:
                 result_list.append([text, dt_box.tolist()])
-        res = {"result": str(result_list)}
+        res = {"result": json.dumps(map_res_to_selectext_format(result_list))}
         return res, None, ""
 
 
