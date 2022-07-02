@@ -32,6 +32,7 @@ from paddle_serving_app.reader import (
     SortedBoxes,
 )
 from mapper import map_res_to_selectext_format
+from lang import get_char_dict_for_lang
 
 _LOGGER = logging.getLogger()
 
@@ -91,14 +92,21 @@ class DetOp(Op):
 
 class RecOp(Op):
     def init_op(self):
-        self.ocr_reader = OCRReader(char_dict_path="../../ppocr/utils/en_dict.txt")
-
         self.get_rotate_crop_image = GetRotateCropImage()
         self.sorted_boxes = SortedBoxes()
 
     def preprocess(self, input_dicts, data_id, log_id):
         ((_, input_dict),) = input_dicts.items()
         raw_im = input_dict["image"]
+        if lang not in input_dict:
+            _LOGGER.info("Lang not passed, choosing en")
+            lang = "en"
+        else:
+            lang = input_dict["lang"]
+            _LOGGER.info(f"Lang passed: {lang}")
+        
+        char_dict_path = get_char_dict_for_lang(lang)
+        self.ocr_reader = OCRReader(char_dict_path=char_dict_path)
 
         data = np.frombuffer(raw_im, np.uint8)
         im = cv2.imdecode(data, cv2.IMREAD_COLOR)
