@@ -98,7 +98,7 @@ class RecOp(Op):
     def preprocess(self, input_dicts, data_id, log_id):
         ((_, input_dict),) = input_dicts.items()
         raw_im = input_dict["image"]
-        if lang not in input_dict:
+        if "lang" not in input_dict:
             _LOGGER.info("Lang not passed, choosing en")
             lang = "en"
         else:

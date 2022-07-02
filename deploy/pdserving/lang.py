@@ -1,16 +1,16 @@
 LANG_DICT = {
-    "ch": "./ppocr/utils/ppocr_keys_v1.txt",
-    "en": "./ppocr/utils/en_dict.txt",
-    "korean": "./ppocr/utils/dict/korean_dict.txt",
-    "japan": "./ppocr/utils/dict/japan_dict.txt",
-    "chinese_cht": "./ppocr/utils/dict/chinese_cht_dict.txt",
-    "ta": "./ppocr/utils/dict/ta_dict.txt",
-    "te": "./ppocr/utils/dict/te_dict.txt",
-    "ka": "./ppocr/utils/dict/ka_dict.txt",
-    "latin": "./ppocr/utils/dict/latin_dict.txt",
-    "arabic": "./ppocr/utils/dict/arabic_dict.txt",
-    "cyrillic": "./ppocr/utils/dict/cyrillic_dict.txt",
-    "devanagari": "./ppocr/utils/dict/devanagari_dict.txt"
+    "ch": "../../ppocr/utils/ppocr_keys_v1.txt",
+    "en": "../../ppocr/utils/en_dict.txt",
+    "korean": "../../ppocr/utils/dict/korean_dict.txt",
+    "japan": "../../ppocr/utils/dict/japan_dict.txt",
+    "chinese_cht": "../../ppocr/utils/dict/chinese_cht_dict.txt",
+    "ta": "../../ppocr/utils/dict/ta_dict.txt",
+    "te": "../../ppocr/utils/dict/te_dict.txt",
+    "ka": "../../ppocr/utils/dict/ka_dict.txt",
+    "latin": "../../ppocr/utils/dict/latin_dict.txt",
+    "arabic": "../../ppocr/utils/dict/arabic_dict.txt",
+    "cyrillic": "../../ppocr/utils/dict/cyrillic_dict.txt",
+    "devanagari": "../../ppocr/utils/dict/devanagari_dict.txt"
 }
 
 def get_char_dict_for_lang(lang):
