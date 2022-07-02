@@ -71,6 +71,15 @@ class DetOp(Op):
         if request_secret != env_secret:
             raise ValueError("the secret is not correct")
 
+        if "lang" not in input_dict:
+            _LOGGER.info("Lang not passed, choosing en")
+            lang = "en"
+        else:
+            lang = input_dict["lang"]
+            _LOGGER.info(f"Lang passed: {lang}")
+        
+        self.lang = lang
+
         data = base64.b64decode(input_dict["image"].encode("utf8"))
         self.raw_im = data
         data = np.fromstring(data, np.uint8)
@@ -86,7 +95,7 @@ class DetOp(Op):
         ratio_list = [float(self.new_h) / self.ori_h, float(self.new_w) / self.ori_w]
         dt_boxes_list = self.post_func(det_out, [ratio_list])
         dt_boxes = self.filter_func(dt_boxes_list[0], [self.ori_h, self.ori_w])
-        out_dict = {"dt_boxes": dt_boxes, "image": self.raw_im}
+        out_dict = {"dt_boxes": dt_boxes, "image": self.raw_im, "lang": self.lang}
         return out_dict, None, ""
 
 
@@ -96,15 +105,11 @@ class RecOp(Op):
         self.sorted_boxes = SortedBoxes()
 
     def preprocess(self, input_dicts, data_id, log_id):
-        ((_, input_dict),) = input_dicts.items()
-        raw_im = input_dict["image"]
-        if "lang" not in input_dict:
-            _LOGGER.info("Lang not passed, choosing en")
-            lang = "en"
-        else:
-            lang = input_dict["lang"]
-            _LOGGER.info(f"Lang passed: {lang}")
         
+        ((_, input_dict),) = input_dicts.items()
+
+        raw_im = input_dict["image"]
+        lang = input_dict["lang"]
         char_dict_path = get_char_dict_for_lang(lang)
         self.ocr_reader = OCRReader(char_dict_path=char_dict_path)
 
