@@ -36,8 +36,6 @@ from lang import get_char_dict_for_lang
 
 _LOGGER = logging.getLogger()
 
-ocr_service = None
-
 
 class DetOp(Op):
     def init_op(self):
@@ -115,12 +113,6 @@ class RecOp(Op):
         char_dict_path = get_char_dict_for_lang(lang)
         _LOGGER.warning(f"Chosen char dict: {char_dict_path}")
         self.ocr_reader = OCRReader(char_dict_path=char_dict_path)
-        if ocr_service is not None:
-            if lang == "tr":
-                ocr_service.prepare_pipeline_config("config_turkish.yml")
-            else:
-                ocr_service.prepare_pipeline_config("config.yml")
-
 
         data = np.frombuffer(raw_im, np.uint8)
         im = cv2.imdecode(data, cv2.IMREAD_COLOR)
@@ -211,5 +203,3 @@ class OcrService(WebService):
 uci_service = OcrService(name="ocr")
 uci_service.prepare_pipeline_config("config.yml")
 uci_service.run_service()
-
-ocr_service = uci_service
