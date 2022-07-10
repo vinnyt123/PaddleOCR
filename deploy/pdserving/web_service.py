@@ -111,6 +111,7 @@ class RecOp(Op):
         raw_im = input_dict["image"]
         lang = input_dict["lang"]
         char_dict_path = get_char_dict_for_lang(lang)
+        _LOGGER.warning(f"Chosen char dict: {char_dict_path}")
         self.ocr_reader = OCRReader(char_dict_path=char_dict_path)
 
         data = np.frombuffer(raw_im, np.uint8)
